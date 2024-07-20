@@ -1,0 +1,16 @@
+.card-img-top {
+    width: 100%; /* Esto asegura que la imagen ocupe todo el ancho del contenedor */
+    height: 30vh; /* Ajusta esto al tamaño deseado */
+    object-fit: cover; /* Esto asegura que la imagen se recorte para llenar el contenedor sin distorsionarse */
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Esto asegura que el contenedor ocupe toda la altura disponible */
+}
+
+.product-card .card-body {
+    flex-grow: 1; /* Esto permite que el cuerpo de la tarjeta crezca para llenar el espacio disponible */
+}

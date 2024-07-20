@@ -1,0 +1,72 @@
+<div style="background-color: #adb5bd; margin-top: 20px;">
+    <div class="container">
+      <!-- Formulario de búsqueda -->
+      <div class="row mb-4">
+        <div class="col-md-6 offset-md-3">
+          <form (ngSubmit)="onSearch()">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Seach a Country in !!English!!"
+                [(ngModel)]="searchTerm"
+                name="searchTerm"
+                required
+              />
+              <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+       <!-- Mensaje de error -->
+    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+      <!-- Listado de países -->
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" *ngFor="let country of countries">
+          <div class="card product-card">
+            <img [src]="country.flags['png']" class="card-img-top" alt="Imagen">
+            <div class="card-body">
+              <h5 class="card-title">{{ country.name.common }}</h5>
+              <h6 class="card-title">{{ country.name.official }}</h6>
+              <p class="card-text"><strong>Region:</strong> {{ country.region }}</p>
+              <p class="card-text"><strong>Subregion:</strong> {{ country.subregion }}</p>
+              <p class="card-text"><strong>Capital:</strong> 
+                <span *ngIf="country.capital && country.capital.length > 0; else noCapital">
+                  {{ country.capital.join(', ') }}
+                </span>
+                <ng-template #noCapital> Not available</ng-template>
+              </p>
+              <p class="card-text"><strong>Population:</strong> {{ country.population | number }}</p>
+              <p class="card-text"><strong>Continents:</strong> {{ country.continents.join(', ') }}</p>
+              <p class="card-text"><strong>Top Level Domain:</strong> {{ country.tld.join(', ') }}</p>
+              <p class="card-text"><strong>Independent:</strong> {{ country.independent ? 'Yes' : 'No' }}</p>
+              <p class="card-text"><strong>Languages:</strong></p>
+              <ul>
+                <li *ngFor="let language of country.languages | keyvalue">
+                  {{ language.key }}: {{ language.value }}
+                </li>
+              </ul>
+              <p class="card-text"><strong>Currencies:</strong></p>
+              <ul>
+                <li *ngFor="let currency of country.currencies | keyvalue">
+                  {{ currency.key }}: {{ currency.value.name }} ({{ currency.value.symbol }})
+                </li>
+              </ul>
+              <p class="card-text"><strong>Borders:</strong></p>
+              <ul *ngIf="country.borders && country.borders.length > 0; else noBorders">
+                <li *ngFor="let border of country.borders">
+                  {{ border }}
+                </li>
+              </ul>
+              <ng-template #noBorders>
+                <p class="card-text">It does not border any country</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
